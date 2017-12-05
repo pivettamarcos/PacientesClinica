@@ -202,8 +202,8 @@
             document.getElementById("submitButton").addEventListener("click", click, false);
 
             function click(){
-                console.log(bf);
-                console.log(bf.getData());
+                if(bf.validate())
+                    document.body.innerHTML += JSON.stringify(bf.getData());
             };
 
         </script>

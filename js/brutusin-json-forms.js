@@ -77,7 +77,7 @@ if (typeof brutusin === "undefined") {
         "minProperties": "At least `{0}` properties are required",
         "maxProperties": "At most `{0}` properties are allowed",
         "uniqueItems": "Array items must be unique",
-        "addItem": "Add item",
+        "addItem": "Adicionar item",
         "true": "True",
         "false": "False"
     };
