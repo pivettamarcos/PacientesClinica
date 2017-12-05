@@ -1,0 +1,181 @@
+{
+    "$schema": "http://json-schema.org/draft-03/schema#",
+    "type": "object",
+    "properties": {
+        /*"identificadores": {
+            "title": "Identificadores",
+            "type": "array",
+            "items": {
+                "description": "Query item",
+                "type": "object",
+                "properties": {
+                    "tipoIdentificador": {
+                        "type": "string",
+                        "title": "Tipo",
+                        "description": "Convencional/Outro",
+                        "required": true
+                    },
+                    "Período": {
+                        "type": "object",
+                        "required": true,
+                        "properties": {
+                            "inicio":{
+                                "type": "string",
+                                "title": "Início",
+                                "description": "Data de cadastramento",
+                            }                        
+                        }
+                    },
+                    "Cadastrador": {
+                        "type": "object",
+                        "required": true,
+                        "properties": {
+                            "inicio":{
+                                "type": "string",
+                                "title": "Nome da clínica",
+                                "description": "Nome da clínica de cadastro",
+                            }                        
+                        }
+                    }
+                }
+            }
+        },*/
+        "nomes": {
+            "title": "Nomes",
+            "type": "array",
+            "items":{
+                "description": "Query item",
+                "type": "object",
+                "properties": {
+                    "nomePrincipal": {
+                        "type": "object",
+                        "title": "Principal",
+                        "required": true,
+                        "properties": {
+                            "nome":{
+                                "type": "string",
+                                "title": "Nome",
+                                "description": "Nome",
+                                "required": true
+                            },  
+                            "nomeFamilia":{
+                                "type": "string",
+                                "title": "Nome da família",
+                                "description": "Nome da família",
+                                "required": true
+                            }                   
+                        }
+                    },
+                    "apelido": {
+                        "type": "string",
+                        "title": "Apelido",
+                        "required": false
+                    }
+                }
+            }    
+        },   
+        "sexo":{
+            "title": "Sexo",
+            "type": "string",
+            "enum":[
+                "Masculino",
+                "Feminino"
+            ]
+        },
+        "dataNasc":{
+            "title": "Data de nascimento",
+            "type": "string"
+        },
+        "ativo":{
+            "type": "boolean",
+            "title": "É ativo"
+        },
+        "contatos": {
+            "title": "Contatos",
+            "type": "array",
+            "items":{
+                "description": "Query item",
+                "type": "object",
+                "properties": {
+                    "sistema": {
+                        "description": "Telefone/rede social",
+                        "type": "string",
+                        "title": "Sistema",
+                        "required": true
+                    },
+                    "tipo": {
+                        "type": "string",
+                        "title": "Tipo",
+                        "required": false
+                    },
+                    "valor": {
+                        "type": "string",
+                        "title": "Valor",
+                        "required": false
+                    },
+                    "prioridade": {
+                        "type": "string",
+                        "title": "Prioridade",
+                        "required": false
+                    },
+                }
+            }    
+        },  
+        "enderecos": {
+            "title": "Endereços",
+            "type": "array",
+            "items":{
+                "description": "Query item",
+                "type": "object",
+                "properties": {
+                    "tipo": {
+                        "description": "Telefone/rede social",
+                        "type": "string",
+                        "title": "Tipo",
+                        "required": true
+                    },
+                    "logradouro": {
+                        "description": "Telefone/rede social",
+                        "type": "string",
+                        "title": "Logradouro",
+                        "required": true
+                    },
+                    "numero": {
+                        "type": "string",
+                        "title": "Número",
+                        "required": false
+                    },
+                    "bairro": {
+                        "type": "string",
+                        "title": "Bairro",
+                        "required": false
+                    },
+                    "cidade": {
+                        "type": "string",
+                        "title": "Cidade",
+                        "required": false
+                    },
+                    "estado": {
+                        "type": "string",
+                        "title": "Estado",
+                        "required": false
+                    },
+                    "cep": {
+                        "type": "string",
+                        "title": "CEP",
+                        "required": false
+                    },
+                    "datas":{
+                        "type":"object",
+                        "properties": {
+                            "inicio":{
+                                "type": "string",
+                                "title": "Início da morada"
+                            }
+                        }
+                    }
+                }
+            }    
+        },                 
+    }
+}

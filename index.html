@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href='css/brutusin-json-forms.css'/>
+        <script src="js/brutusin-json-forms.js"></script>
+        <script src="js/jquery-3.2.1.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>        
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">        <script src="js/brutusin-json-forms-bootstrap.js"></script>        
+        <meta charset="utf-8">    
+        <style>
+            body{
+                margin: 50px;
+            }
+        </style>    
+    </head>
+
+    <body>
+        <h3 style="margin-left: 10px"> Cadastro de pacientes para clínica </h3>
+        <hr style = "border: 1px solid #eeeeee">
+        <button style="float:right" id="submitButton" class="btn btn-success">Cadastrar paciente</button>
+        <div id="container"></div>
+        <script>
+            var bf;
+            $(document).ready(function(){
+                var oi = $.getJSON("json_exemplo.json", function(json) {
+                    console.log(json); 
+                });
+
+                var schema = {
+                    "$schema": "http://json-schema.org/draft-03/schema#",
+                    "type": "object",
+                    "properties": {
+                        "nomes": {
+                            "title": "Nomes",
+                            "type": "array",
+                            "items":{
+                                "description": "Query item",
+                                "type": "object",
+                                "properties": {
+                                    "nomePrincipal": {
+                                        "type": "object",
+                                        "title": "Principal",
+                                        "required": true,
+                                        "properties": {
+                                            "nome":{
+                                                "type": "string",
+                                                "title": "Nome",
+                                                "description": "Nome",
+                                                "required": true
+                                            },  
+                                            "nomeFamilia":{
+                                                "type": "string",
+                                                "title": "Nome da família",
+                                                "description": "Nome da família",
+                                                "required": true
+                                            }                   
+                                        }
+                                    },
+                                    "apelido": {
+                                        "type": "string",
+                                        "title": "Apelido",
+                                        "required": false
+                                    }
+                                }
+                            }    
+                        },   
+                        "sexo":{
+                            "title": "Sexo",
+                            "type": "string",
+                            "enum":[
+                                "Masculino",
+                                "Feminino"
+                            ]
+                        },
+                        "dataNasc":{
+                            "title": "Data de nascimento",
+                            "type": "string"
+                        },
+                        "contatos": {
+                            "title": "Contatos",
+                            "type": "array",
+                            "items":{
+                                "description": "Query item",
+                                "type": "object",
+                                "properties": {
+                                    "sistema": {
+                                        "description": "Telefone/rede social",
+                                        "type": "string",
+                                        "title": "Sistema",
+                                        "required": true
+                                    },
+                                    "tipo": {
+                                        "type": "string",
+                                        "title": "Tipo",
+                                        "required": false
+                                    },
+                                    "valor": {
+                                        "type": "string",
+                                        "title": "Valor",
+                                        "required": false
+                                    },
+                                    "prioridade": {
+                                        "type": "string",
+                                        "title": "Prioridade",
+                                        "required": false
+                                    },
+                                }
+                            }    
+                        },  
+                        "enderecos": {
+                            "title": "Endereços",
+                            "type": "array",
+                            "items":{
+                                "description": "Query item",
+                                "type": "object",
+                                "properties": {
+                                    "tipo": {
+                                        "description": "Telefone/rede social",
+                                        "type": "string",
+                                        "title": "Tipo",
+                                        "required": true
+                                    },
+                                    "logradouro": {
+                                        "description": "Telefone/rede social",
+                                        "type": "string",
+                                        "title": "Logradouro",
+                                        "required": true
+                                    },
+                                    "numero": {
+                                        "type": "string",
+                                        "title": "Número",
+                                        "required": false
+                                    },
+                                    "bairro": {
+                                        "type": "string",
+                                        "title": "Bairro",
+                                        "required": false
+                                    },
+                                    "cidade": {
+                                        "type": "string",
+                                        "title": "Cidade",
+                                        "required": false
+                                    },
+                                    "estado": {
+                                        "type": "string",
+                                        "title": "Estado",
+                                        "required": false
+                                    },
+                                    "cep": {
+                                        "type": "string",
+                                        "title": "CEP",
+                                        "required": false
+                                    },
+                                    "datas":{
+                                        "type":"object",
+                                        "title": "Datas",
+                                        "properties": {
+                                            "inicio":{
+                                                "type": "string",
+                                                "title": "Início da morada"
+                                            }
+                                        }
+                                    }
+                                }
+                            }    
+                        },                 
+                    }
+                };
+
+                var schema2 = {
+                    "$schema": "http://json-schema.org/draft-03/schema#",
+                    "type": "object",
+                    "properties": {
+                        "species": {
+                            "title": "Species supported",
+                            "description": "Changes in this property (`$.species`) trigger the resolution of the actual (depending on the values being selected) schema of a dependent property (`$.subspecies`)",
+                            "type": "string",
+                            "enum": [
+                                "human",
+                                "dog",
+                                "cat"
+                            ],
+                            "required": true
+                        },
+                        "subspecies": {
+                            "dependsOn": [
+                                "species"
+                            ]
+                        }
+                    }
+                };
+                var BrutusinForms = brutusin["json-forms"];
+                bf = BrutusinForms.create(schema);
+
+                var container = document.getElementById('container');
+                bf.render(container);
+                
+                var linha = document.createElement("hr");
+                linha.style.border =  "1px solid black";
+            });
+
+            document.getElementById("submitButton").addEventListener("click", click, false);
+
+            function click(){
+                console.log(bf);
+                console.log(bf.getData());
+            };
+
+        </script>
+    </body>
+</html>

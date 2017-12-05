@@ -1,0 +1,67 @@
+{
+  "id": "example",
+
+  "identificador": [
+    {
+      "tipo": "convencional",
+      "periodo": {
+        "inicio": "2017-05-06"
+      },
+      "cadastrador": {
+        "nome": "Clínica do dente"
+      }
+    }
+  ],
+  "ativo": true,
+  "nome": [
+    {
+      "tipo": "oficial",
+      "familia": "Silva",
+      "dado": [
+        "José",
+        "Lucas"
+      ]
+    },
+    {
+      "tipo": "apelido",
+      "dado": [
+        "Zé"
+      ]
+    }
+  ],
+  "telecomunicações": [
+    {
+      "sistema": "telefone",
+      "tipo": "casa",
+      "valor": "(51) 34278890",
+      "prioridade": 1
+    },
+    {
+      "sistema": "telefone",
+      "valor": "(51) 985094246",
+      "tipo": "celular",
+      "prioridade": 2
+    }
+  ],
+  "sexo": "masculino",
+  "dataNasc": "1979-11-24",
+  "morreu": false,
+  "endereço": [
+    {
+      "tipo": "casa",
+      "type": "both",
+      "completo": "Pitangas 34, Porto Alegre, Centro, Rio Grande do Sul, 92014-780",
+      "numero": "34",
+      "logradouro": [
+        "Pitangas"
+      ],
+      "cidade": "Porto Alegre",
+      "bairro": "Centro",
+      "estado": "Rio Grande do Sul",
+      "CEP": "92014-780",
+      "periodo": {
+        "inicio": "1980-09-25"
+      }
+    }
+  ]
+}
