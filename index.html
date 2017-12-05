@@ -4,12 +4,18 @@
         <link rel="stylesheet" href='css/brutusin-json-forms.css'/>
         <script src="js/brutusin-json-forms.js"></script>
         <script src="js/jquery-3.2.1.min.js"></script>
+        <script src="js/jquery-ui.js"></script>
+        <script type="text/javascript" src="js/jquery.json-viewer.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>        
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">        <script src="js/brutusin-json-forms-bootstrap.js"></script>        
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">        
+        <script src="js/brutusin-json-forms-bootstrap.js"></script>        
+        <link rel="stylesheet" href="css/jquery.json-viewer.css">
+
         <meta charset="utf-8">    
         <style>
             body{
-                margin: 50px;
+                margin-left: 200px;
+                margin-right: 200px;
             }
         </style>    
     </head>
@@ -19,12 +25,12 @@
         <hr style = "border: 1px solid #eeeeee">
         <button style="float:right" id="submitButton" class="btn btn-success">Cadastrar paciente</button>
         <div id="container"></div>
+        
         <script>
             var bf;
+            var entries = [];
+            var entriesDiv;
             $(document).ready(function(){
-                var oi = $.getJSON("json_exemplo.json", function(json) {
-                    console.log(json); 
-                });
 
                 var schema = {
                     "$schema": "http://json-schema.org/draft-03/schema#",
@@ -32,37 +38,33 @@
                     "properties": {
                         "nomes": {
                             "title": "Nomes",
-                            "type": "array",
-                            "items":{
-                                "description": "Query item",
-                                "type": "object",
-                                "properties": {
-                                    "nomePrincipal": {
-                                        "type": "object",
-                                        "title": "Principal",
-                                        "required": true,
-                                        "properties": {
-                                            "nome":{
-                                                "type": "string",
-                                                "title": "Nome",
-                                                "description": "Nome",
-                                                "required": true
-                                            },  
-                                            "nomeFamilia":{
-                                                "type": "string",
-                                                "title": "Nome da família",
-                                                "description": "Nome da família",
-                                                "required": true
-                                            }                   
-                                        }
-                                    },
-                                    "apelido": {
-                                        "type": "string",
-                                        "title": "Apelido",
-                                        "required": false
+                            "type": "object",
+                            "properties": {
+                                "nomePrincipal": {
+                                    "type": "object",
+                                    "title": "Principal",
+                                    "required": true,
+                                    "properties": {
+                                        "nome":{
+                                            "type": "string",
+                                            "title": "Nome",
+                                            "description": "Primeiro nome e nome do meio",
+                                            "required": true
+                                        },  
+                                        "nomeFamilia":{
+                                            "type": "string",
+                                            "title": "Nome da família",
+                                            "description": "Nome da família",
+                                            "required": true
+                                        }                   
                                     }
+                                },
+                                "apelido": {
+                                    "type": "string",
+                                    "title": "Apelido",
+                                    "required": false
                                 }
-                            }    
+                            } 
                         },   
                         "sexo":{
                             "title": "Sexo",
@@ -74,6 +76,15 @@
                         },
                         "dataNasc":{
                             "title": "Data de nascimento",
+                            "type": "string",
+                            "format": "date"
+                        },
+                        "cpf":{
+                            "title": "CPF",
+                            "type": "string"
+                        },
+                        "rg":{
+                            "title": "RG",
                             "type": "string"
                         },
                         "contatos": {
@@ -115,13 +126,13 @@
                                 "type": "object",
                                 "properties": {
                                     "tipo": {
-                                        "description": "Telefone/rede social",
+                                        "description": "",
                                         "type": "string",
                                         "title": "Tipo",
                                         "required": true
                                     },
                                     "logradouro": {
-                                        "description": "Telefone/rede social",
+                                        "description": "",
                                         "type": "string",
                                         "title": "Logradouro",
                                         "required": true
@@ -129,7 +140,11 @@
                                     "numero": {
                                         "type": "string",
                                         "title": "Número",
-                                        "required": false
+                                        "required": false,
+                                        "pattern": "([0-9])+",
+                                        "errors": {
+                                            "pattern": "Should be at least ${schema} years, ${data} years is too young."
+                                        }
                                     },
                                     "bairro": {
                                         "type": "string",
@@ -149,7 +164,9 @@
                                     "cep": {
                                         "type": "string",
                                         "title": "CEP",
-                                        "required": false
+                                        "required": false,
+                                        "description": "#####-###",
+                                        "pattern": "[0-9]{5}-[0-9]{3}"
                                     },
                                     "datas":{
                                         "type":"object",
@@ -157,6 +174,7 @@
                                         "properties": {
                                             "inicio":{
                                                 "type": "string",
+                                                "format": "date",
                                                 "title": "Início da morada"
                                             }
                                         }
@@ -167,28 +185,6 @@
                     }
                 };
 
-                var schema2 = {
-                    "$schema": "http://json-schema.org/draft-03/schema#",
-                    "type": "object",
-                    "properties": {
-                        "species": {
-                            "title": "Species supported",
-                            "description": "Changes in this property (`$.species`) trigger the resolution of the actual (depending on the values being selected) schema of a dependent property (`$.subspecies`)",
-                            "type": "string",
-                            "enum": [
-                                "human",
-                                "dog",
-                                "cat"
-                            ],
-                            "required": true
-                        },
-                        "subspecies": {
-                            "dependsOn": [
-                                "species"
-                            ]
-                        }
-                    }
-                };
                 var BrutusinForms = brutusin["json-forms"];
                 bf = BrutusinForms.create(schema);
 
@@ -196,16 +192,27 @@
                 bf.render(container);
                 
                 var linha = document.createElement("hr");
-                linha.style.border =  "1px solid black";
+                linha.style.border =  "1px solid #eeeeee";
+                document.body.appendChild(linha);
+                var text = document.createElement("h3");
+                text.innerHTML = 'Pacientes cadastrados na clínica <h6>JSON</h6>';
+                document.body.appendChild(text);
+                entriesDiv = document.body.appendChild(document.createElement("div"));
+                entriesDiv.id = "json-renderer";
             });
 
             document.getElementById("submitButton").addEventListener("click", click, false);
 
             function click(){
-                if(bf.validate())
-                    document.body.innerHTML += JSON.stringify(bf.getData());
+                if(bf.validate()){
+                    console.log(JSON.stringify(bf.getData()));
+                    entries.push(bf.getData());
+                    $('#json-renderer').jsonViewer(entries);
+
+                }
             };
 
+           
         </script>
     </body>
 </html>

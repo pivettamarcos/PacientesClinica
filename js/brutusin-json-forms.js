@@ -59,14 +59,14 @@ if (typeof brutusin === "undefined") {
 
     var BrutusinForms = new Object();
     BrutusinForms.messages = {
-        "validationError": "Validation error",
-        "required": "This field is **required**",
+        "validationError": "Erro na validação",
+        "required": "Esse campo é **obrigatório**",
         "invalidValue": "Invalid field value",
         "addpropNameExistent": "This property is already present in the object",
         "addpropNameRequired": "A name is required",
         "minItems": "At least `{0}` items are required",
         "maxItems": "At most `{0}` items are allowed",
-        "pattern": "Value does not match pattern: `{0}`",
+        "pattern": "Entrada não aceita",
         "minLength": "Value must be **at least** `{0}` characters long",
         "maxLength": "Value must be **at most** `{0}` characters long",
         "multipleOf": "Value must be **multiple of** `{0}`",
