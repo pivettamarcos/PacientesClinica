@@ -23,7 +23,6 @@
     <body>
         <h3 style="margin-left: 10px"> Cadastro de pacientes para clínica </h3>
         <hr style = "border: 1px solid #eeeeee">
-        <button style="float:right" id="submitButton" class="btn btn-success">Cadastrar paciente</button>
         <div id="container"></div>
         
         <script>
@@ -190,18 +189,27 @@
 
                 var container = document.getElementById('container');
                 bf.render(container);
+
+                var button = document.createElement("button");
+                button.style.float = "right";
+                button.id="submitButton";
+                button.className = "btn btn-success";
+                button.innerText = "Cadastrar Paciente";
+                console.log(button.class);
+                document.body.appendChild(button);
                 
                 var linha = document.createElement("hr");
                 linha.style.border =  "1px solid #eeeeee";
+                linha.style.marginTop = "50px";
                 document.body.appendChild(linha);
                 var text = document.createElement("h3");
                 text.innerHTML = 'Pacientes cadastrados na clínica <h6>JSON</h6>';
                 document.body.appendChild(text);
                 entriesDiv = document.body.appendChild(document.createElement("div"));
                 entriesDiv.id = "json-renderer";
-            });
 
-            document.getElementById("submitButton").addEventListener("click", click, false);
+                document.getElementById("submitButton").addEventListener("click", click, false);
+            });
 
             function click(){
                 if(bf.validate()){
